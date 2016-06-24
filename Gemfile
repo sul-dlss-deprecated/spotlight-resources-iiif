@@ -39,3 +39,5 @@ end
 # END ENGINE_CART BLOCK
 
 gem 'blacklight-spotlight', github: 'projectblacklight/spotlight'
+
+gem 'factory_girl_rails', require: false

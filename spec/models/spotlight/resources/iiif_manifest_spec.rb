@@ -69,6 +69,21 @@ describe Spotlight::Resources::IiifManifest do
         expect(subject.to_solr['readonly_attribution_tesim']).to eq ['Attribution Data']
       end
 
+      it 'indexes both forms' do
+        expect(subject.to_solr['readonly_attribution_ssim']).to eq ['Attribution Data']
+      end
+
+      it 'indexes both forms when a vocab' do
+        subject.to_solr
+        field = Spotlight::CustomField.where(slug: "attribution").first!
+        field.field_type = "vocab"
+        field.save
+        exhibit.reload
+
+        expect(subject.to_solr['readonly_attribution_ssim']).to eq ['Attribution Data']
+        expect(subject.to_solr['readonly_attribution_tesim']).to eq ['Attribution Data']
+      end
+
       it 'includes the top-level description' do
         expect(subject.to_solr['readonly_description_tesim']).to eq ['A test IIIF manifest']
       end

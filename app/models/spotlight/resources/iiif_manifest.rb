@@ -85,7 +85,9 @@ module Spotlight
 
         metadata.each_with_object({}) do |(key, value), hash|
           next unless (field = exhibit_custom_fields[key])
+          field = BothFields.new(field)
           hash[field.field] = value
+          hash[field.alternate_field] = value
         end
       end
 
